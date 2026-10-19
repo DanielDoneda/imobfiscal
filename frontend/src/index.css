@@ -1,0 +1,142 @@
+:root {
+  --cor1: #2D3E40;
+  --cor2: #387373;
+  --cor3: #93BFB7;
+  --cor4: #97A6A0;
+  --cor5: #E4F2E7;
+
+  --bs-primary: #387373;
+  --bs-primary-rgb: 56, 115, 115;
+  --bs-link-color: #387373;
+  --bs-link-hover-color: #2D3E40;
+  --bs-body-bg: #E4F2E7;
+  --bs-body-color: #2D3E40;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* navbar */
+.navbar-imobfiscal {
+  background-color: var(--cor1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-imobfiscal .navbar-usuario {
+  color: var(--cor3);
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  --bs-btn-bg: #387373;
+  --bs-btn-border-color: #387373;
+  --bs-btn-hover-bg: #2e6060;
+  --bs-btn-hover-border-color: #2e6060;
+  --bs-btn-active-bg: #2D3E40;
+  --bs-btn-active-border-color: #2D3E40;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-disabled-bg: #387373;
+  --bs-btn-disabled-border-color: #387373;
+}
+
+.table-dark {
+  --bs-table-bg: #2D3E40;
+}
+
+.card {
+  border-color: var(--cor4);
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-header {
+  background-color: rgba(56, 115, 115, 0.08);
+  border-bottom-color: var(--cor4);
+}
+
+/* campos de formulário */
+.form-control,
+.form-select,
+textarea.form-control,
+input.form-control,
+.input-group-text {
+  background-color: #fff !important;
+  color: #1A2526 !important;
+  border-color: #5E726F !important;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+  color: #6B7B7B;
+  opacity: 1;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #fff !important;
+  color: #1A2526 !important;
+  border-color: #387373 !important;
+  box-shadow: 0 0 0 0.25rem rgba(56, 115, 115, 0.25);
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:focus,
+.form-select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: #1A2526;
+  caret-color: #1A2526;
+}
+
+.form-control:disabled,
+.form-control[readonly],
+.form-select:disabled {
+  background-color: #E8ECEC !important;
+  color: #51605F !important;
+  border-color: #97A6A0 !important;
+  cursor: not-allowed;
+}
+
+.form-check-input {
+  background-color: #fff;
+  border-color: #5E726F;
+}
+
+.form-check-input:checked {
+  background-color: #387373;
+  border-color: #387373;
+}
+
+.badge-teal {
+  background-color: #387373;
+  color: #fff;
+}
+
+/* telas de autenticação */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #387373, #2D3E40);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px !important;
+  border: none !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+.auth-card .auth-titulo {
+  color: var(--cor1);
+  font-weight: 800;
+}
+
+.layout-main {
+  padding-top: 1.5rem;
+  min-height: calc(100vh - 60px);
+}
