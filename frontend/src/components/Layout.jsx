@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext.jsx'
 
 function Layout({ children }) {
@@ -10,52 +10,54 @@ function Layout({ children }) {
     navegar('/login')
   }
 
+  const navClassName = ({ isActive }) =>
+    `sidebar-link${isActive ? ' active' : ''}`
+
   return (
-    <>
-      <nav className="navbar navbar-dark navbar-imobfiscal">
-        <div className="container">
-
-          <Link to="/dashboard" className="navbar-brand fw-bold fs-5 text-decoration-none">
+    <div className="app-layout">
+      <aside className="sidebar-imobfiscal">
+        <Link to="/dashboard" className="sidebar-brand text-decoration-none">
             <i className="bi bi-building me-2" style={{ color: 'var(--cor3)' }}></i>
-            ImobFiscal
-          </Link>
+          <span>ImobFiscal</span>
+        </Link>
 
-          <div className="d-flex align-items-center gap-3">
-            <Link to="/imoveis" className="nav-link text-white d-none d-md-inline px-0" style={{ opacity: 0.85 }}>
-              <i className="bi bi-house-door me-1"></i>Imóveis
-            </Link>
-            <Link to="/locadores" className="nav-link text-white d-none d-md-inline px-0" style={{ opacity: 0.85 }}>
-              <i className="bi bi-person-lines-fill me-1"></i>Locadores
-            </Link>
-            <Link to="/contratos" className="nav-link text-white d-none d-md-inline px-0" style={{ opacity: 0.85 }}>
-              <i className="bi bi-file-text me-1"></i>Contratos
-            </Link>
-            <Link to="/simulador-fiscal" className="nav-link text-white d-none d-md-inline px-0" style={{ opacity: 0.85 }}>
-              <i className="bi bi-calculator me-1"></i>Simulador
-            </Link>
-            <Link to="/boletos" className="nav-link text-white d-none d-md-inline px-0" style={{ opacity: 0.85 }}>
-              <i className="bi bi-receipt me-1"></i>Boletos
-            </Link>
-            <span className="navbar-usuario d-none d-md-inline">
-              <i className="bi bi-person-circle me-1"></i>
-              {usuario?.email}
-            </span>
-            <button
-              className="btn btn-outline-light btn-sm"
-              onClick={handleLogout}
-            >
-              <i className="bi bi-box-arrow-right me-1"></i>
-              Sair
-            </button>
-          </div>
+        <nav className="sidebar-nav" aria-label="Menu principal">
+          <NavLink to="/dashboard" className={navClassName}>
+            <i className="bi bi-speedometer2"></i><span>Dashboard</span>
+          </NavLink>
+          <NavLink to="/imoveis" className={navClassName}>
+            <i className="bi bi-house-door"></i><span>Imóveis</span>
+          </NavLink>
+          <NavLink to="/locadores" className={navClassName}>
+            <i className="bi bi-person-lines-fill"></i><span>Locadores</span>
+          </NavLink>
+          <NavLink to="/contratos" className={navClassName}>
+            <i className="bi bi-file-text"></i><span>Contratos</span>
+          </NavLink>
+          <NavLink to="/simulador-fiscal" className={navClassName}>
+            <i className="bi bi-calculator"></i><span>Simulador</span>
+          </NavLink>
+          <NavLink to="/boletos" className={navClassName}>
+            <i className="bi bi-receipt"></i><span>Boletos</span>
+          </NavLink>
+        </nav>
 
+        <div className="sidebar-footer">
+          <span className="sidebar-usuario" title={usuario?.email}>
+            <i className="bi bi-person-circle"></i>
+            <span>{usuario?.email}</span>
+          </span>
+          <button className="sidebar-logout" onClick={handleLogout}>
+            <i className="bi bi-box-arrow-right"></i>
+            <span>Sair</span>
+          </button>
         </div>
-      </nav>
+      </aside>
 
       <main className="layout-main">
         {children}
       </main>
-    </>
+    </div>
   )
 }
 
