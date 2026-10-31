@@ -10,6 +10,29 @@ Este guia cobre duas situações:
 
 ## Parte 1 — Rodar Localmente
 
+### Forma rápida para testes (sem instalar banco)
+
+Abra dois terminais no VS Code (`Terminal` → `Novo Terminal`).
+
+**Terminal 1 — backend com banco H2 temporário:**
+
+```powershell
+cd "C:\Users\Doneda\Documents\ImobFiscal\imobfiscal\backend"
+mvn spring-boot:run "-Dspring-boot.run.profiles=local"
+```
+
+**Terminal 2 — frontend:**
+
+```powershell
+cd "C:\Users\Doneda\Documents\ImobFiscal\imobfiscal\frontend"
+npm install
+npm run dev
+```
+
+Abra `http://localhost:5173` e entre com `admin@imobfiscal.com.br` / `admin123`.
+O H2 fica apenas na memória: os dados criados durante o teste desaparecem quando o backend é
+encerrado com `Ctrl+C`.
+
 ### O que você precisa instalar (uma vez só)
 
 | Ferramenta | Versão | Para quê |

@@ -19,6 +19,7 @@ public record ContratoRequest(
 
         @NotBlank
         @Size(min = 11, max = 14, message = "CPF ou CNPJ inválido")
+        @Pattern(regexp = "\\d{11}|\\d{14}", message = "CPF/CNPJ deve conter 11 ou 14 números")
         String locatarioCpfCnpj,
 
         @NotBlank String locatarioNome,

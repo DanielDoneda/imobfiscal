@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const IMOBILIARIA_ID = '11111111-1111-1111-1111-111111111111'
 
+function getImobiliariaId() {
+  return localStorage.getItem('imobfiscal_imobiliaria_id') || IMOBILIARIA_ID
+}
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
 })
@@ -30,62 +34,62 @@ export function cadastrar(nome, email, senha) {
 }
 
 export function listarImoveis() {
-  return api.get(`/imobiliarias/${IMOBILIARIA_ID}/imoveis`)
+  return api.get(`/imobiliarias/${getImobiliariaId()}/imoveis`)
 }
 
 export function buscarImovel(id) {
-  return api.get(`/imobiliarias/${IMOBILIARIA_ID}/imoveis/${id}`)
+  return api.get(`/imobiliarias/${getImobiliariaId()}/imoveis/${id}`)
 }
 
 export function criarImovel(dados) {
-  return api.post(`/imobiliarias/${IMOBILIARIA_ID}/imoveis`, dados)
+  return api.post(`/imobiliarias/${getImobiliariaId()}/imoveis`, dados)
 }
 
 export function atualizarImovel(id, dados) {
-  return api.put(`/imobiliarias/${IMOBILIARIA_ID}/imoveis/${id}`, dados)
+  return api.put(`/imobiliarias/${getImobiliariaId()}/imoveis/${id}`, dados)
 }
 
 export function excluirImovel(id) {
-  return api.delete(`/imobiliarias/${IMOBILIARIA_ID}/imoveis/${id}`)
+  return api.delete(`/imobiliarias/${getImobiliariaId()}/imoveis/${id}`)
 }
 
 export const listarLocadores = () =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/locadores`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/locadores`)
 
 export const buscarLocador = (id) =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/locadores/${id}`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/locadores/${id}`)
 
 export const criarLocador = (dados) =>
-  api.post(`/imobiliarias/${IMOBILIARIA_ID}/locadores`, dados)
+  api.post(`/imobiliarias/${getImobiliariaId()}/locadores`, dados)
 
 export const atualizarLocador = (id, dados) =>
-  api.put(`/imobiliarias/${IMOBILIARIA_ID}/locadores/${id}`, dados)
+  api.put(`/imobiliarias/${getImobiliariaId()}/locadores/${id}`, dados)
 
 export const excluirLocador = (id) =>
-  api.delete(`/imobiliarias/${IMOBILIARIA_ID}/locadores/${id}`)
+  api.delete(`/imobiliarias/${getImobiliariaId()}/locadores/${id}`)
 
 export const listarContratos = () =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/contratos`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/contratos`)
 
 export const buscarContrato = (id) =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/contratos/${id}`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/contratos/${id}`)
 
 export const criarContrato = (dados) =>
-  api.post(`/imobiliarias/${IMOBILIARIA_ID}/contratos`, dados)
+  api.post(`/imobiliarias/${getImobiliariaId()}/contratos`, dados)
 
 export const atualizarStatusContrato = (id, status) =>
-  api.patch(`/imobiliarias/${IMOBILIARIA_ID}/contratos/${id}/status?status=${status}`)
+  api.patch(`/imobiliarias/${getImobiliariaId()}/contratos/${id}/status?status=${status}`)
 
 export const calcularImposto = (dados) =>
   api.post('/motor-tributario/calcular', dados)
 
 export const listarBoletos = () =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/boletos`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/boletos`)
 
 export const gerarBoleto = (dados) =>
-  api.post(`/imobiliarias/${IMOBILIARIA_ID}/boletos/gerar`, dados)
+  api.post(`/imobiliarias/${getImobiliariaId()}/boletos/gerar`, dados)
 
 export const buscarBoleto = (id) =>
-  api.get(`/imobiliarias/${IMOBILIARIA_ID}/boletos/${id}`)
+  api.get(`/imobiliarias/${getImobiliariaId()}/boletos/${id}`)
 
 export default api

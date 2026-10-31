@@ -3,6 +3,7 @@ package br.fatec.imobfiscal.controller;
 import br.fatec.imobfiscal.model.Usuario;
 import br.fatec.imobfiscal.service.ImobiliariaService;
 import br.fatec.imobfiscal.service.UsuarioService;
+import br.fatec.imobfiscal.security.JwtService;
 import br.fatec.imobfiscal.model.CadastroRequest;
 import br.fatec.imobfiscal.model.LoginRequest;
 import br.fatec.imobfiscal.model.LoginResponse;
@@ -24,6 +25,7 @@ public class AuthController {
     private final UsuarioService usuarioService;
     private final ImobiliariaService imobiliariaService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
@@ -35,11 +37,15 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos");
         }
 
+        String token = jwtService.gerarToken(usuario);
+
         return ResponseEntity.ok(new LoginResponse(
-                UUID.randomUUID().toString(),
+                token,
                 usuario.getEmail(),
                 usuario.getNome(),
-                usuario.getPerfil().name()));
+                usuario.getPerfil().name(),
+                usuario.getImobiliariaId().toString(),
+                jwtService.getExpirationSeconds()));
     }
 
     @PostMapping("/cadastro")
@@ -48,7 +54,7 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
         }
 
-        UUID imobiliariaId = UUID.fromString(request.imobiliariaId());
+        UUID imobiliariaId = request.imobiliariaId();
         imobiliariaService.buscarPorId(imobiliariaId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Imobiliária não encontrada"));

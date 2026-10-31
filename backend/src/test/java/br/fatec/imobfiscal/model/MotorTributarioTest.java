@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.fatec.imobfiscal.repository.AliquotaVigenteRepository;
 import br.fatec.imobfiscal.service.MotorTributarioService;
@@ -53,13 +54,13 @@ class MotorTributarioTest {
         when(repository.findByRegimeAndTipoImovelAndAnoVigencia(eq("PF"), eq("RESIDENCIAL"), anyInt()))
                 .thenReturn(Optional.empty());
 
-        RuntimeException excecao = assertThrows(
-                RuntimeException.class,
+        ResponseStatusException excecao = assertThrows(
+                ResponseStatusException.class,
                 () -> motorTributarioService.calcular(
                         new CalculoRequest(new BigDecimal("2000.00"), "PF", "RESIDENCIAL"))
         );
 
-        assertTrue(excecao.getMessage().startsWith("Alíquota não encontrada"),
+        assertTrue(excecao.getReason().startsWith("Alíquota não encontrada"),
                 "A mensagem deve indicar que a alíquota não foi encontrada");
     }
 

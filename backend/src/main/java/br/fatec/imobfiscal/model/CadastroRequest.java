@@ -3,6 +3,9 @@ package br.fatec.imobfiscal.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.UUID;
 
 public record CadastroRequest(
         @NotBlank(message = "Nome obrigatório")
@@ -16,6 +19,6 @@ public record CadastroRequest(
         @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
         String senha,
 
-        @NotBlank(message = "ID da imobiliária obrigatório")
-        String imobiliariaId
+        @NotNull(message = "ID da imobiliária obrigatório")
+        UUID imobiliariaId
 ) {}

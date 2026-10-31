@@ -1,14 +1,15 @@
 package br.fatec.imobfiscal.config;
 
 import br.fatec.imobfiscal.enums.PerfilUsuario;
+import br.fatec.imobfiscal.enums.PlanoAssinatura;
 import br.fatec.imobfiscal.model.AliquotaVigente;
+import br.fatec.imobfiscal.model.Imobiliaria;
 import br.fatec.imobfiscal.model.Usuario;
 import br.fatec.imobfiscal.repository.AliquotaVigenteRepository;
 import br.fatec.imobfiscal.repository.ImobiliariaRepository;
 import br.fatec.imobfiscal.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -27,30 +28,27 @@ public class DataInitializer implements CommandLineRunner {
     private final ImobiliariaRepository imobiliariaRepo;
     private final UsuarioRepository usuarioRepo;
     private final PasswordEncoder passwordEncoder;
-    private final JdbcTemplate jdbc;
-
     @Override
     public void run(String... args) {
-        seedImobiliaria();
+        UUID imobiliariaId = seedImobiliaria();
         seedAliquotas();
-        seedAdmin();
+        seedAdmin(imobiliariaId);
     }
 
-    private void seedImobiliaria() {
-        if (imobiliariaRepo.existsByCnpj("00000000000191")) return;
-
-        // UUID_TO_BIN porque Hibernate 6 + MySQL armazena UUID como binary(16)
-        jdbc.update(
-            "INSERT INTO imobiliarias (id, cnpj, razao, nome_fantasia, email, telefone, plano, created_at, updated_at) " +
-            "VALUES (UUID_TO_BIN(?), ?, ?, ?, ?, ?, ?, NOW(), NOW())",
-            IMOBILIARIA_ID.toString(),
-            "00000000000191",
-            "ImobFiscal Demo Ltda",
-            "ImobFiscal",
-            "contato@imobfiscal.com.br",
-            "(11) 99999-9999",
-            "BASICO"
-        );
+    private UUID seedImobiliaria() {
+        return imobiliariaRepo.findByCnpj("00000000000191")
+                .map(Imobiliaria::getId)
+                .orElseGet(() -> {
+                    Imobiliaria imobiliaria = new Imobiliaria();
+                    imobiliaria.setId(IMOBILIARIA_ID);
+                    imobiliaria.setCnpj("00000000000191");
+                    imobiliaria.setRazao("ImobFiscal Demo Ltda");
+                    imobiliaria.setNomeFantasia("ImobFiscal");
+                    imobiliaria.setEmail("contato@imobfiscal.com.br");
+                    imobiliaria.setTelefone("(11) 99999-9999");
+                    imobiliaria.setPlano(PlanoAssinatura.BASICO);
+                    return imobiliariaRepo.save(imobiliaria).getId();
+                });
     }
 
     private void seedAliquotas() {
@@ -70,7 +68,7 @@ public class DataInitializer implements CommandLineRunner {
         aliquotaRepo.saveAll(aliquotas);
     }
 
-    private void seedAdmin() {
+    private void seedAdmin(UUID imobiliariaId) {
         usuarioRepo.findByEmailAndDeletedAtIsNull("admin@imobfiscal.com.br")
             .ifPresentOrElse(
                 admin -> {
@@ -79,7 +77,7 @@ public class DataInitializer implements CommandLineRunner {
                 },
                 () -> {
                     Usuario admin = new Usuario();
-                    admin.setImobiliariaId(IMOBILIARIA_ID);
+                    admin.setImobiliariaId(imobiliariaId);
                     admin.setEmail("admin@imobfiscal.com.br");
                     admin.setSenha(passwordEncoder.encode("admin123"));
                     admin.setNome("Admin ImobFiscal");
