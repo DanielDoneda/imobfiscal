@@ -277,8 +277,8 @@ Todos os serviços têm plano **gratuito**.
 | `DB_PASSWORD` | senha do Supabase |
 | `CORS_ORIGINS` | URL do Vercel (preencher depois de criar o frontend) |
 
-> **Não existe `JWT_SECRET`** — a API é aberta. O login confere e-mail/senha via BCrypt
-> e devolve um marcador de sessão simples (não um JWT).
+> **Configuração atual:** a API utiliza Spring Security e JWT. Defina `JWT_SECRET` com pelo menos
+> 32 caracteres em produção. O login confere a senha com BCrypt e devolve um token assinado.
 
 6. Clique em **Create Web Service**
 7. Aguarde o deploy (3-5 min) e copie a URL gerada: `https://imobfiscal-backend.onrender.com`

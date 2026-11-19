@@ -4,6 +4,7 @@ import br.fatec.imobfiscal.config.DataInitializer;
 import br.fatec.imobfiscal.enums.PerfilUsuario;
 import br.fatec.imobfiscal.model.Usuario;
 import br.fatec.imobfiscal.repository.UsuarioRepository;
+import br.fatec.imobfiscal.repository.ImobiliariaRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ class SecurityIntegrationTest {
 
     @Autowired private MockMvc mockMvc;
     @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired private ImobiliariaRepository imobiliariaRepository;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private ObjectMapper objectMapper;
 
@@ -42,6 +44,7 @@ class SecurityIntegrationTest {
     @BeforeEach
     void prepararUsuario() {
         usuarioRepository.deleteAll();
+        imobiliariaRepository.deleteAll();
         Usuario usuario = new Usuario();
         usuario.setImobiliariaId(IMOBILIARIA_ID);
         usuario.setEmail("admin@imobfiscal.com.br");
@@ -49,6 +52,73 @@ class SecurityIntegrationTest {
         usuario.setNome("Admin ImobFiscal");
         usuario.setPerfil(PerfilUsuario.ADMIN);
         usuarioRepository.save(usuario);
+    }
+
+    @Test
+    void cadastroPublicoDeveCriarImobiliariaEUsuarioAdministrador() throws Exception {
+        mockMvc.perform(post("/api/auth/cadastro")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "nome":"Maria Gestora",
+                                  "nomeImobiliaria":"Imobiliária Horizonte",
+                                  "cnpj":"12345678000190",
+                                  "email":"maria@horizonte.com.br",
+                                  "senha":"senha123"
+                                }
+                                """))
+                .andExpect(status().isCreated());
+
+        Usuario usuario = usuarioRepository.findByEmailAndDeletedAtIsNull("maria@horizonte.com.br")
+                .orElseThrow();
+        org.junit.jupiter.api.Assertions.assertEquals(PerfilUsuario.ADMIN, usuario.getPerfil());
+        org.junit.jupiter.api.Assertions.assertTrue(passwordEncoder.matches("senha123", usuario.getSenha()));
+        org.junit.jupiter.api.Assertions.assertTrue(
+                imobiliariaRepository.findByIdAndDeletedAtIsNull(usuario.getImobiliariaId()).isPresent());
+    }
+
+    @Test
+    void cadastroPublicoDeveRecusarCnpjDuplicado() throws Exception {
+        String cadastro = """
+                {
+                  "nome":"Maria Gestora",
+                  "nomeImobiliaria":"Imobiliária Horizonte",
+                  "cnpj":"12345678000190",
+                  "email":"%s",
+                  "senha":"senha123"
+                }
+                """;
+
+        mockMvc.perform(post("/api/auth/cadastro")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(cadastro.formatted("maria@horizonte.com.br")))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(post("/api/auth/cadastro")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(cadastro.formatted("outra@horizonte.com.br")))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.message").value("CPF ou CNPJ já cadastrado"));
+    }
+
+    @Test
+    void cadastroPublicoDeveAceitarCpf() throws Exception {
+        mockMvc.perform(post("/api/auth/cadastro")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "nome":"João Proprietário",
+                                  "nomeImobiliaria":"João Proprietário",
+                                  "cnpj":"12345678901",
+                                  "email":"joao@proprietario.com.br",
+                                  "senha":"senha123"
+                                }
+                                """))
+                .andExpect(status().isCreated());
+
+        Usuario usuario = usuarioRepository.findByEmailAndDeletedAtIsNull("joao@proprietario.com.br")
+                .orElseThrow();
+        org.junit.jupiter.api.Assertions.assertEquals(PerfilUsuario.ADMIN, usuario.getPerfil());
     }
 
     @Test

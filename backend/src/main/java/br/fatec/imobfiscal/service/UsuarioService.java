@@ -1,6 +1,7 @@
 package br.fatec.imobfiscal.service;
 
 import br.fatec.imobfiscal.model.Usuario;
+import br.fatec.imobfiscal.enums.PerfilUsuario;
 import br.fatec.imobfiscal.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +26,17 @@ public class UsuarioService {
     }
 
     public Usuario cadastrar(UUID imobiliariaId, String email, String senha, String nome) {
+        return cadastrar(imobiliariaId, email, senha, nome, PerfilUsuario.OPERADOR);
+    }
+
+    public Usuario cadastrar(UUID imobiliariaId, String email, String senha, String nome,
+                             PerfilUsuario perfil) {
         Usuario usuario = new Usuario();
         usuario.setImobiliariaId(imobiliariaId);
         usuario.setEmail(email);
         usuario.setSenha(passwordEncoder.encode(senha));
         usuario.setNome(nome);
+        usuario.setPerfil(perfil);
         return repository.save(usuario);
     }
 }

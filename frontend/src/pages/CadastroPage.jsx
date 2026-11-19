@@ -4,6 +4,8 @@ import { cadastrar } from '../services/api.js'
 
 function CadastroPage() {
   const [nome, setNome] = useState('')
+  const [nomeImobiliaria, setNomeImobiliaria] = useState('')
+  const [cnpj, setCnpj] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState(null)
@@ -18,13 +20,11 @@ function CadastroPage() {
     setCarregando(true)
 
     try {
-      await cadastrar(nome, email, senha)
+      await cadastrar(nome, nomeImobiliaria, cnpj, email, senha)
       setSucesso(true)
       setTimeout(() => navegar('/login'), 2000)
     } catch (err) {
-      if (err.response?.status === 409) {
-        setErro('Este email já está cadastrado.')
-      } else if (err.response?.data?.message) {
+      if (err.response?.data?.message) {
         setErro(err.response.data.message)
       } else {
         setErro('Erro ao cadastrar. Tente novamente.')
@@ -82,6 +82,35 @@ function CadastroPage() {
                 className="form-control"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="nomeImobiliaria" className="form-label">Nome da imobiliária ou proprietário</label>
+              <input
+                type="text"
+                id="nomeImobiliaria"
+                className="form-control"
+                value={nomeImobiliaria}
+                onChange={(e) => setNomeImobiliaria(e.target.value)}
+                maxLength={150}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="cnpj" className="form-label">CPF ou CNPJ</label>
+              <input
+                type="text"
+                id="cnpj"
+                className="form-control"
+                value={cnpj}
+                onChange={(e) => setCnpj(e.target.value)}
+                inputMode="numeric"
+                placeholder="Somente números"
+                pattern="([0-9]{11}|[0-9]{14})"
+                maxLength={14}
                 required
               />
             </div>

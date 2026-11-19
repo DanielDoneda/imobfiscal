@@ -3,9 +3,7 @@ package br.fatec.imobfiscal.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.UUID;
+import jakarta.validation.constraints.Pattern;
 
 public record CadastroRequest(
         @NotBlank(message = "Nome obrigatório")
@@ -19,6 +17,11 @@ public record CadastroRequest(
         @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
         String senha,
 
-        @NotNull(message = "ID da imobiliária obrigatório")
-        UUID imobiliariaId
+        @NotBlank(message = "Nome da imobiliária ou proprietário obrigatório")
+        @Size(max = 150, message = "Nome da imobiliária ou proprietário deve ter no máximo 150 caracteres")
+        String nomeImobiliaria,
+
+        @NotBlank(message = "CPF ou CNPJ obrigatório")
+        @Pattern(regexp = "(?:\\d{11}|\\d{14})", message = "CPF deve conter 11 números ou CNPJ 14 números")
+        String cnpj
 ) {}

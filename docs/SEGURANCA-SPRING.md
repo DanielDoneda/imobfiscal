@@ -56,7 +56,8 @@ serve somente para execução local e não deve ser usada em produção.
 - Bloqueio ou revogação de tokens após logout, troca de senha ou desativação do usuário.
 - Rate limiting e bloqueio temporário após várias tentativas de login.
 - Confirmação de e-mail, recuperação de senha e política de senha mais forte.
-- Auditoria de alterações e registro de tentativas de acesso negadas.
+- Ampliar a auditoria atual para registrar também tentativas de acesso negadas.
+- Cadastro administrativo de funcionários e aplicação efetiva das permissões de cada perfil.
 - Eliminação futura do tenant padrão usado apenas na tela pública de cadastro; após o login, as
   chamadas protegidas já utilizam a imobiliária retornada pela API.
 - Restrições de unicidade por imobiliária para códigos de imóveis e documentos.

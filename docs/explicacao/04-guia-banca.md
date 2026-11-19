@@ -1,5 +1,8 @@
 # Guia de Preparação para a Banca — ImobFiscal
 
+> **Guia histórico do PI 2.** Não utilize as afirmações sobre API aberta na apresentação atual.
+> A versão vigente possui Spring Security e JWT, documentados em `docs/SEGURANCA-SPRING.md`.
+
 > Documento de revisão rápida para a defesa do PI 2 · FATEC DSM 2026-1.
 > Formato: pergunta da banca → resposta curta e memorável.
 > Leia junto com [01-frontend.md](01-frontend.md), [02-backend.md](02-backend.md) e [03-banco-de-dados.md](03-banco-de-dados.md).

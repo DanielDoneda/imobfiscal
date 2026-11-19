@@ -4,6 +4,8 @@ import br.fatec.imobfiscal.audit.AcaoAuditoria;
 import br.fatec.imobfiscal.audit.AuditoriaService;
 import br.fatec.imobfiscal.audit.RegistroAuditoria;
 import br.fatec.imobfiscal.model.Usuario;
+import br.fatec.imobfiscal.model.Imobiliaria;
+import br.fatec.imobfiscal.enums.PerfilUsuario;
 import br.fatec.imobfiscal.service.ImobiliariaService;
 import br.fatec.imobfiscal.service.UsuarioService;
 import br.fatec.imobfiscal.security.JwtService;
@@ -18,8 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -60,17 +61,20 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro")
+    @Transactional
     public ResponseEntity<Void> cadastrar(@Valid @RequestBody CadastroRequest request) {
         if (usuarioService.existePorEmail(request.email())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
         }
 
-        UUID imobiliariaId = request.imobiliariaId();
-        imobiliariaService.buscarPorId(imobiliariaId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Imobiliária não encontrada"));
+        if (imobiliariaService.existePorCnpj(request.cnpj())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "CPF ou CNPJ já cadastrado");
+        }
 
-        usuarioService.cadastrar(imobiliariaId, request.email(), request.senha(), request.nome());
+        Imobiliaria imobiliaria = imobiliariaService.criar(
+                request.nomeImobiliaria(), request.cnpj(), request.email());
+        usuarioService.cadastrar(imobiliaria.getId(), request.email(), request.senha(),
+                request.nome(), PerfilUsuario.ADMIN);
         return ResponseEntity.status(201).build();
     }
 }

@@ -1,5 +1,8 @@
 # Backend do ImobFiscal — Guia para a Banca
 
+> **Documento histórico do PI 2.** A versão atual utiliza Spring Security, JWT, camada de serviços
+> e persistência JPA. Consulte `docs/SEGURANCA-SPRING.md` para a implementação vigente.
+
 > Documento de estudo e defesa.
 > Público-alvo: estudante de DSM que vai explicar o sistema para uma banca avaliadora.
 > Verificado contra o código em `backend/` — versão Spring Boot 3.3.0, Java 17.

@@ -1,5 +1,8 @@
 # Documento de Arquitetura de Software — ImobFiscal
 
+> **Documento histórico do PI 2.** As decisões sobre API aberta, ausência de JWT e SQL puro não
+> representam a versão atual. Consulte `docs/SEGURANCA-SPRING.md` para a segurança vigente.
+
 > Projeto Integrador 2 · FATEC · 2026
 > Versão verificada contra o código em 2026-06-02.
 

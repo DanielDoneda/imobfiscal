@@ -24,12 +24,13 @@ export function login(email, senha) {
   return api.post('/auth/login', { email, senha })
 }
 
-export function cadastrar(nome, email, senha) {
+export function cadastrar(nome, nomeImobiliaria, cnpj, email, senha) {
   return api.post('/auth/cadastro', {
     nome,
+    nomeImobiliaria,
+    cnpj: cnpj.replace(/\D/g, ''),
     email,
     senha,
-    imobiliariaId: IMOBILIARIA_ID,
   })
 }
 
