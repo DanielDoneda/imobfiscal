@@ -15,6 +15,7 @@ import ContratosPage from './pages/ContratosPage.jsx'
 import ContratoFormPage from './pages/ContratoFormPage.jsx'
 import SimuladorFiscalPage from './pages/SimuladorFiscalPage.jsx'
 import BoletosPage from './pages/BoletosPage.jsx'
+import AuditoriaPage from './pages/AuditoriaPage.jsx'
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
           <Route path="/contratos/novo" element={<RotaPrivada><Layout><ContratoFormPage /></Layout></RotaPrivada>} />
           <Route path="/simulador-fiscal" element={<RotaPrivada><Layout><SimuladorFiscalPage /></Layout></RotaPrivada>} />
           <Route path="/boletos" element={<RotaPrivada><Layout><BoletosPage /></Layout></RotaPrivada>} />
+          <Route path="/auditoria" element={<RotaPrivada><Layout><AuditoriaPage /></Layout></RotaPrivada>} />
 
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 

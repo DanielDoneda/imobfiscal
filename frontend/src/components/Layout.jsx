@@ -40,6 +40,11 @@ function Layout({ children }) {
           <NavLink to="/boletos" className={navClassName}>
             <i className="bi bi-receipt"></i><span>Boletos</span>
           </NavLink>
+          {['ADMIN', 'GERENTE'].includes(usuario?.perfil) && (
+            <NavLink to="/auditoria" className={navClassName}>
+              <i className="bi bi-clock-history"></i><span>Auditoria</span>
+            </NavLink>
+          )}
         </nav>
 
         <div className="sidebar-footer">

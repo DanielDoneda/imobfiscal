@@ -1,5 +1,6 @@
 package br.fatec.imobfiscal.config;
 
+import br.fatec.imobfiscal.audit.AuditoriaFilter;
 import br.fatec.imobfiscal.security.JwtAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuditoriaFilter auditoriaFilter;
     private final ObjectMapper objectMapper;
 
     @Bean
@@ -51,6 +53,7 @@ public class SecurityConfig {
                                     Map.of("message", "Acesso negado"));
                         }))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(auditoriaFilter, JwtAuthenticationFilter.class)
                 .build();
     }
 }

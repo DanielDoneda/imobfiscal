@@ -159,6 +159,7 @@ erDiagram
 | `schema.sql` | DDL — criação das 6 tabelas base |
 | `V2__motor_fiscal.sql` | Migração V2 — adiciona `aliquotas_vigentes`, `boletos`, `regime_tributario` (locadores) e `valor_venal` (imoveis) |
 | `seed.sql` | Dados fictícios para demonstração |
+| `auditoria-mongodb.md` | Modelagem documental dos logs de atividades no MongoDB |
 
 ## Como executar
 

@@ -24,3 +24,7 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
+      - key: AUDIT_ENABLED
+        value: "false"
+      - key: MONGODB_URI
+        sync: false

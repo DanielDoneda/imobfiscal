@@ -92,4 +92,9 @@ export const gerarBoleto = (dados) =>
 export const buscarBoleto = (id) =>
   api.get(`/imobiliarias/${getImobiliariaId()}/boletos/${id}`)
 
+export const listarAuditoria = (pagina = 0, tamanho = 20) =>
+  api.get(`/imobiliarias/${getImobiliariaId()}/auditoria`, {
+    params: { pagina, tamanho },
+  })
+
 export default api
