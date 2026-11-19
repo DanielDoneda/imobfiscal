@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: imobfiscal-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: CORS_ORIGINS
+        value: https://imobfiscal-sigma.vercel.app,https://pi-imob-fiscal.vercel.app
+      - key: JWT_EXPIRATION_MS
+        value: "28800000"
+      - key: DB_POOL_SIZE
+        value: "3"
+      - key: JDBC_DATABASE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

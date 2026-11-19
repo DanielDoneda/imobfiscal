@@ -13,4 +13,4 @@ WORKDIR /app
 COPY --from=build /app/target/imobfiscal-backend-1.0.0.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -Xms64m -Xmx384m -XX:+UseSerialGC -jar app.jar"]
