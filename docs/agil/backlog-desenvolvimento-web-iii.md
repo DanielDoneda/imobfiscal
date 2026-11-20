@@ -41,7 +41,7 @@ o desenvolvimento incremental do ImobFiscal, inclusive atividades já concluída
 - **Descrição:** Criar a imobiliária e seu primeiro administrador sem depender da conta de demonstração.
 - **Aceite:** recebe imobiliária ou proprietário, CPF/CNPJ, responsável, e-mail e senha; cria tenant
   e usuário `ADMIN` em uma transação; rejeita e-mail ou documento repetido.
-- **Evidência:** `CadastroPage`, `AuthController` e testes de integração.
+- **Evidência:** commit `02237dc`, `CadastroPage`, `AuthController` e testes de integração.
 
 ### WEB-06 — Registrar atividades no MongoDB
 - **Responsável:** DBA
@@ -57,7 +57,7 @@ o desenvolvimento incremental do ImobFiscal, inclusive atividades já concluída
 - **Informado por:** Gerente de projetos
 - **Prioridade:** Alta
 - **Aceite:** builds aprovados; capturas de 201, 400, 401 e 403; commits registrados.
-- **Progresso:** frontend compilado e 15 testes do backend aprovados em 19/11/2026; faltam as
+- **Progresso:** frontend compilado e 16 testes do backend aprovados em 19/11/2026; faltam as
   capturas da versão publicada e os links finais dos commits.
 
 ### WEB-08 — Atualizar documentação técnica
@@ -114,3 +114,43 @@ o desenvolvimento incremental do ImobFiscal, inclusive atividades já concluída
 - **Prioridade:** Média
 - **Estimativa:** 8 pontos
 - **Descrição:** Logout efetivo, revogação após troca de senha e bloqueio temporário.
+
+### WEB-15 — Criar cadastro próprio de locatários
+- **Responsável:** Desenvolvedor
+- **Informado por:** Usuário avaliador
+- **Prioridade:** Alta
+- **Estimativa:** 8 pontos
+- **Descrição:** Criar cadastro reutilizável de locatários PF e PJ, separado de imóveis e contratos.
+- **Aceite:** locatário pertence ao tenant autenticado; CPF/CNPJ é único dentro da imobiliária;
+  contratos utilizam apenas locatários previamente cadastrados.
+
+### WEB-16 — Vincular locatário exclusivamente pelo contrato
+- **Responsável:** Arquiteto de sistemas
+- **Informado por:** Líder técnico
+- **Prioridade:** Alta
+- **Estimativa:** 8 pontos
+- **Descrição:** Remover qualquer escolha de locatário do cadastro do imóvel e centralizar o vínculo
+  no contrato de locação.
+- **Aceite:** contrato lista imóveis disponíveis e locatários cadastrados; imóvel exibe contrato e
+  locatário vigentes apenas para consulta.
+- **Dependência:** WEB-15.
+
+### WEB-17 — Impedir contratos ativos simultâneos no mesmo imóvel
+- **Responsável:** Desenvolvedor
+- **Informado por:** Arquiteto de sistemas
+- **Prioridade:** Alta
+- **Estimativa:** 5 pontos
+- **Descrição:** Aplicar regra de negócio e teste de integração para impedir que um imóvel seja
+  vinculado a mais de um contrato ativo.
+- **Aceite:** imóvel ocupado não aparece como disponível; tentativa direta pela API é recusada;
+  encerramento do contrato libera o imóvel.
+
+### WEB-18 — Cadastrar proprietários e imóveis de terceiros
+- **Responsável:** Líder técnico
+- **Informado por:** Gerente de projetos
+- **Prioridade:** Média
+- **Estimativa:** 13 pontos
+- **Descrição:** Criar cadastro de proprietários PF/PJ e identificar imóveis próprios ou administrados
+  para terceiros.
+- **Aceite:** vários imóveis podem pertencer ao mesmo proprietário; boletos e cálculos fiscais usam
+  o proprietário correto; dados permanecem isolados por tenant.
