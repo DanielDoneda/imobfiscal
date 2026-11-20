@@ -17,7 +17,7 @@ function Layout({ children }) {
     <div className="app-layout">
       <aside className="sidebar-imobfiscal">
         <Link to="/dashboard" className="sidebar-brand text-decoration-none">
-            <i className="bi bi-building me-2" style={{ color: 'var(--cor3)' }}></i>
+          <img src="/brand/imobfiscal-simbolo.png" alt="" className="sidebar-logo" />
           <span>ImobFiscal</span>
         </Link>
 

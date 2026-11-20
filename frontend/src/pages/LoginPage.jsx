@@ -35,10 +35,12 @@ function LoginPage() {
       <div className="card auth-card">
         <div className="card-body p-4">
 
-          <h2 className="card-title text-center mb-1 auth-titulo">
-            <i className="bi bi-building me-2 text-primary"></i>
-            ImobFiscal
-          </h2>
+          <img
+            src="/brand/imobfiscal-assinatura.png"
+            alt="ImobFiscal — Plataforma de Gestão Fiscal Imobiliária"
+            className="auth-logo"
+          />
+          <h1 className="visually-hidden">Acessar o ImobFiscal</h1>
           <p className="text-center text-muted mb-4">Faça login para continuar</p>
 
           {erro && (

@@ -39,11 +39,13 @@ function CadastroPage() {
       <div className="card auth-card">
         <div className="card-body p-4">
 
-          <h2 className="card-title text-center mb-1 auth-titulo">
-            <i className="bi bi-person-plus me-2 text-primary"></i>
-            Criar Conta
-          </h2>
-          <p className="text-center text-muted mb-4">ImobFiscal — Sistema Imobiliário</p>
+          <img
+            src="/brand/imobfiscal-assinatura.png"
+            alt="ImobFiscal — Plataforma de Gestão Fiscal Imobiliária"
+            className="auth-logo"
+          />
+          <h1 className="h3 text-center mb-1 auth-titulo">Criar conta</h1>
+          <p className="text-center text-muted mb-4">Cadastre sua operação imobiliária</p>
 
           {sucesso && (
             <div className="alert alert-success" role="alert">
