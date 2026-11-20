@@ -19,7 +19,16 @@ Este backlog reúne as quatro disciplinas do Projeto Integrador em poucos cartõ
 | PI-13 | Banco de Dados Não Relacional | Modelar logs de atividades no MongoDB | Concluído | Alta | DBA | Documento de log contém ator, ação, entidade, data e contexto |
 | PI-14 | Banco de Dados Não Relacional | Integrar gravação e consulta de auditoria | Concluído | Alta | DBA | Ações relevantes geram logs e a aplicação permite consultá-los |
 | PI-15 | Banco de Dados Não Relacional | Definir retenção, índices e proteção dos logs | Em andamento | Média | DBA | Política de retenção e índices documentados e aplicados |
-| PI-16 | Produto integrado | Concluir contratos, cobrança e imóveis de terceiros | Planejado | Alta | Líder Técnico | Fluxos futuros refinados, priorizados e associados aos responsáveis |
+| PI-16 | Produto integrado | Completar o ciclo de vida dos contratos | Planejado | Alta | Líder Técnico | Contratos permitem criação, vigência, reajuste, encerramento e histórico |
+| PI-17 | Produto integrado | Cadastrar funcionários e definir perfis de acesso | Planejado | Alta | Desenvolvedor | Administrador cadastra funcionários por CPF e atribui perfis autorizados |
+| PI-18 | Produto integrado | Cadastrar proprietários e imóveis de terceiros | Planejado | Alta | Desenvolvedor | Imóvel pode ser vinculado ao proprietário correto, inclusive quando administrado por terceiros |
+| PI-19 | Produto integrado | Vincular imóvel e locatário somente pelo contrato | Planejado | Alta | Arquiteto de Sistemas | Cadastro do imóvel não escolhe locatário e o contrato usa apenas imóveis disponíveis |
+| PI-20 | Produto integrado | Implementar cobrança e emissão de boleto de aluguel | Planejado | Alta | Líder Técnico | Contrato gera cobrança com vencimento, valor e situação de pagamento |
+| PI-21 | Desenvolvimento Web III | Validar cadastros de pessoa física e jurídica | Planejado | Alta | Desenvolvedor | CPF, CNPJ e campos condicionais são validados no frontend e no backend |
+| PI-22 | Produto integrado | Criar painel de vencimentos e pendências | Planejado | Média | Desenvolvedor | Painel apresenta contratos, cobranças e atividades que exigem atenção |
+| PI-23 | Banco de Dados Não Relacional | Criar consulta administrativa dos logs | Planejado | Média | DBA | Usuário autorizado filtra logs por período, usuário, ação e entidade |
+| PI-24 | Infraestrutura | Planejar substituição do Railway | Planejado | Média | Arquiteto de Sistemas | Alternativa de hospedagem, migração, variáveis e retorno documentados |
+| PI-25 | Qualidade e entrega | Executar homologação final e consolidar documentação | Planejado | Alta | Gerente de Projetos | Fluxos críticos homologados e documentação final reúne as quatro disciplinas |
 
 ## Convenção para cadastro
 
