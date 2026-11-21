@@ -72,3 +72,10 @@ O serviço não confia em um tenant informado isoladamente e não tenta substitu
 Security. Ele encaminha o JWT e o `imobiliariaId` ao backend Java. O backend compara o tenant da
 URL com o tenant assinado no token e retorna `403` quando há divergência.
 
+## Publicação
+
+O `render.yaml` da raiz contém a definição do serviço `imobfiscal-relatorios`. No ambiente
+online, confirme que `JAVA_API_URL` aponta para a URL real do backend Java. O frontend utiliza
+`VITE_REPORTS_API_URL` quando ela estiver configurada; na ausência dela, a compilação de produção
+usa `https://imobfiscal-relatorios.onrender.com`.
+

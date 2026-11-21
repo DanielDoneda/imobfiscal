@@ -28,3 +28,17 @@ services:
         value: "false"
       - key: MONGODB_URI
         sync: false
+
+  - type: web
+    name: imobfiscal-relatorios
+    runtime: docker
+    plan: free
+    rootDir: python-relatorios
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: JAVA_API_URL
+        value: https://imobfiscal-backend.onrender.com
+      - key: REQUEST_TIMEOUT_SECONDS
+        value: "30"

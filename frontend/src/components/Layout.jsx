@@ -40,6 +40,9 @@ function Layout({ children }) {
           <NavLink to="/boletos" className={navClassName}>
             <i className="bi bi-receipt"></i><span>Boletos</span>
           </NavLink>
+          <NavLink to="/relatorios" className={navClassName}>
+            <i className="bi bi-bar-chart-line"></i><span>Relatórios</span>
+          </NavLink>
           {['ADMIN', 'GERENTE'].includes(usuario?.perfil) && (
             <NavLink to="/auditoria" className={navClassName}>
               <i className="bi bi-clock-history"></i><span>Auditoria</span>
