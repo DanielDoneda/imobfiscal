@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 from uuid import UUID
 
 from fastapi import FastAPI, Header, HTTPException, status
@@ -17,9 +18,17 @@ app = FastAPI(
     description="Serviço Python de indicadores gerenciais integrado à API Java do ImobFiscal.",
     version="1.0.0",
 )
+origens_permitidas = [
+    origem.strip()
+    for origem in os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,https://imobfiscal-sigma.vercel.app,https://pi-imob-fiscal.vercel.app",
+    ).split(",")
+    if origem.strip()
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://pi-imob-fiscal.vercel.app"],
+    allow_origins=origens_permitidas,
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["Authorization", "Content-Type"],

@@ -42,3 +42,5 @@ services:
         value: https://imobfiscal-backend.onrender.com
       - key: REQUEST_TIMEOUT_SECONDS
         value: "30"
+      - key: CORS_ORIGINS
+        value: http://localhost:5173,https://imobfiscal-sigma.vercel.app,https://pi-imob-fiscal.vercel.app
